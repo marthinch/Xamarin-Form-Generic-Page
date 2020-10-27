@@ -26,7 +26,7 @@ namespace GenericPage
 
         private async void Button3_Clicked(object sender, EventArgs e)
         {
-            var customPage = new CustomPage<NewSample>();
+            CustomPage<NewSample> customPage = new CustomPage<NewSample>();
             await Navigation.PushAsync(customPage);
         }
     }
