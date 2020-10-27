@@ -23,7 +23,7 @@ namespace GenericPage.Views
 
         public CustomPage()
         {
-            Title = "Generic page";
+            Title = "Generic page by C#";
 
             index = 0;
             item = 15;
@@ -47,6 +47,8 @@ namespace GenericPage.Views
             for (int i = 0; i <= 30; i++)
             {
                 T item = new T();
+                item.GetType().GetProperty("Id").SetValue(item, i);
+                item.GetType().GetProperty("Name").SetValue(item, "Override value " + i);
                 list.Add(item);
             }
 

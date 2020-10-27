@@ -2,23 +2,29 @@
 <ContentPage
     x:Class="GenericPage.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Generic Page">
 
     <StackLayout>
         <Button
             x:Name="Button1"
             Clicked="Button1_Clicked"
-            Text="Open Page 1" />
+            Text="Default Page" />
 
         <Button
             x:Name="Button2"
             Clicked="Button2_Clicked"
-            Text="Open Page 2" />
+            Text="Generic By Base Page" />
 
         <Button
             x:Name="Button3"
             Clicked="Button3_Clicked"
-            Text="Open Generic Page by C#" />
+            Text="Generic By Instance" />
+
+        <Button
+            x:Name="Button4"
+            Clicked="Button4_Clicked"
+            Text="Generic Page By C#" />
     </StackLayout>
 
 </ContentPage>

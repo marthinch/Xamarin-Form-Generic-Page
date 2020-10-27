@@ -1,5 +1,4 @@
-﻿using GenericPage.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,52 +10,49 @@ using Xamarin.Forms.Xaml;
 namespace GenericPage.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Page2 : BaseContentPage<Sample>
+    public partial class Page3 : ContentPage
     {
+        private static DataTemplate dataTemplate;
+        private static List<object> listItems;
+        private static int index, item;
+        private static bool lastItem;
+
+
         private ObservableCollection<object> observableItems;
-        private int index, item;
-        private bool lastItem;
-
-
         private CancellationTokenSource cancellationTokenSearching;
 
-
-        public Page2()
+        public Page3()
         {
             InitializeComponent();
 
-            Title = "Generic page by base page";
+            Title = "Generic page by instance";
 
+            ListViewItems.ItemTemplate = dataTemplate;
+        }
+
+        public static Page3 Instance<T>() where T : class, new()
+        {
             index = 0;
             item = 15;
 
-            DataTemplate dataTemplate = Application.Current.Resources?["ObjectTemplate"] as DataTemplate;
-            ListViewItems.ItemTemplate = dataTemplate;
+            dataTemplate = Application.Current.Resources?["ObjectTemplate"] as DataTemplate;
 
-            cancellationTokenSearching = new CancellationTokenSource();
-
-            ListViewItems.ItemsSource = GetData();
-        }
-
-        private List<object> CustomData()
-        {
-            List<object> list = new List<object>();
-
+            // Generate data
+            listItems = new List<object>();
             for (int i = 0; i <= 30; i++)
             {
-                CurrentModel = new Sample();
-                CurrentModel.Id = i;
-                CurrentModel.Name = "Override value " + i;
-
-                list.Add(CurrentModel);
+                T item = new T();
+                item.GetType().GetProperty("Id").SetValue(item, i);
+                item.GetType().GetProperty("Name").SetValue(item, "Override value " + i);
+                listItems.Add(item);
             }
 
-            return list;
+            return new Page3();
         }
 
-        private ObservableCollection<object> GetData()
+        private ObservableCollection<dynamic> GetData()
         {
-            var data = CustomData();
+            var data = listItems;
 
             if (!string.IsNullOrEmpty(EntrySearch.Text))
             {
@@ -100,8 +96,14 @@ namespace GenericPage.Views
             return observableItems;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
-        private void EntrySearch_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+            ListViewItems.ItemsSource = GetData();
+        }
+
+        private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -125,12 +127,12 @@ namespace GenericPage.Views
             }
         }
 
-        private void ListViewItems_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        private void ListViewItems_ItemTapped(object sender, ItemTappedEventArgs e)
         {
 
         }
 
-        private void ListViewItems_ItemAppearing(object sender, Xamarin.Forms.ItemVisibilityEventArgs e)
+        private void ListViewItems_ItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             if (lastItem)
                 return;

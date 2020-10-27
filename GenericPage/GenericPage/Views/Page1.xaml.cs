@@ -45,6 +45,8 @@ namespace GenericPage.Views
             for (int i = 0; i <= 30; i++)
             {
                 Sample item = new Sample();
+                item.Id = i;
+                item.Name = "Override value " + i;
                 samples.Add(item);
             }
 
@@ -115,6 +117,11 @@ namespace GenericPage.Views
             }
         }
 
+        private void ListViewItems_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+        }
+
         private void ListViewItems_ItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             if (lastItem)
@@ -128,11 +135,6 @@ namespace GenericPage.Views
             {
                 ListViewItems.ItemsSource = GetData();
             }
-        }
-
-        private void ListViewItems_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-
         }
     }
 }
