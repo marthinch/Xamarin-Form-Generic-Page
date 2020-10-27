@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GenericPage.Views.Page2"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <StackLayout Margin="10">
+
+        <Entry x:Name="EntrySearch" Placeholder="Search" />
+
+        <ListView x:Name="ListViewItems" />
+
+    </StackLayout>
+
+</ContentPage>
